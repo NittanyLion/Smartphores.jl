@@ -2,7 +2,7 @@
 CurrentModule = Smartphores
 ```
 
-# Smartphores
+# Smartphores.jl
 
 
 Documentation for [Smartphores](https://github.com/NittanyLion/Smartphores.jl).
