@@ -3,6 +3,16 @@ module Smartphores
 
 export Smartphore, acquire, release 
 
+"""
+    Smartphore( size )
+
+Create a counting semaphore that allows at most `size`
+acquires to be in use at any time.  The only difference with the
+Base Semaphore call is that Smartphores tell you which permit id you received, which can e.g. be helpful if there are `size` bits of prereserved memory to be shared.
+
+Each acquire must be matched with a release.
+This provides a acquire & release memory ordering on acquire/release calls.
+"""
 mutable struct Smartphore
     size        ::  Int
     counter     ::  Int
@@ -11,7 +21,12 @@ mutable struct Smartphore
     Smartphore(size) = size > 0 ? new(size, 0, Threads.Condition(), fill( false, size ) ) : throw(ArgumentError("Smartphore size must be > 0"))
 end
 
+"""
+    acquire( s :: Smartphore )
 
+Wait for one of the `size` permits to be available,
+blocking until one can be acquired and then returns the id of the requested permit.
+"""
 function acquire( s :: Smartphore)
     myspot = 0
     lock(s.cond_wait)
@@ -35,6 +50,13 @@ function acquire( s :: Smartphore)
 end
 
 
+"""
+    release(s :: Smartphore, me :: Bool)
+
+Return permit me to the pool,
+possibly allowing another task to acquire it
+and resume execution.
+"""
 function release( s :: Smartphore, myspot :: Int )
     lock(s.cond_wait)
     try
