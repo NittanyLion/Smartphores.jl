@@ -11,7 +11,7 @@ function howthisworks( n )
         println( "thread $(Threads.threadid()) says: block $a is mine, all mine" )
         blocks[a] .= i
         sleep(1)
-        println( "thread $(Threads.threadid()) says: block I'm giving block $a back" )
+        println( "thread $(Threads.threadid()) says: I'm giving block $a back" )
         release!( s, a )
     end
 end
