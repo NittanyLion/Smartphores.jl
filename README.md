@@ -14,7 +14,7 @@ There are only three calls:
 
 `release!( s :: Smartphore, permitid :: Int )` releases the permit
 
-All of this is a mild hack of the standard Julia Semaphore machinery found in `lock.jl`.  The same MIT license applies.
+All of this is a mild hack of the standard Julia Semaphore machinery found in *lock.jl*.  The same MIT license applies.
 
 Here is a simple example to demonstrate:
 ````
