@@ -10,9 +10,11 @@ function howthisworks( n )
         local a = acquire( s )
         println( "thread $(Threads.threadid()) says: block $a is mine, all mine" )
         blocks[a] .= i
-        sleep(1)
         println( "thread $(Threads.threadid()) says: block I'm giving block $a back" )
         release( s, a )
+    end
+    for a ∈ 1:n
+        println( blocks[a] )
     end
 end
 
