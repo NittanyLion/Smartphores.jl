@@ -1,7 +1,7 @@
 module Smartphores
 
 
-export Smartphore, acquire, release 
+export Smartphore, acquire!, release! 
 
 """
     Smartphore( size )
@@ -27,7 +27,7 @@ end
 Wait for one of the `size` permits to be available,
 blocking until one can be acquired and then returns the id of the requested permit.
 """
-function acquire( s :: Smartphore)
+function acquire!( s :: Smartphore)
     myspot = 0
     lock(s.cond_wait)
     try
@@ -51,13 +51,13 @@ end
 
 
 """
-    release(s :: Smartphore, me :: Bool)
+    release!(s :: Smartphore, me :: Bool)
 
 Return permit me to the pool,
 possibly allowing another task to acquire it
 and resume execution.
 """
-function release( s :: Smartphore, myspot :: Int )
+function release!( s :: Smartphore, myspot :: Int )
     lock(s.cond_wait)
     try
         s.counter > 0 || error("release count must match acquire count")
