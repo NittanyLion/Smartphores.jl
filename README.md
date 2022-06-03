@@ -10,9 +10,9 @@ There are only three calls:
 
 `Smartphore( size :: Int )` creates 
 
-`acquire!( s :: Smartphore )` acquires a permit and returns its id
+`acquire( s :: Smartphore )` acquires a permit and returns its id
 
-`release!( s :: Smartphore, permitid :: Int )` releases the permit
+`release( s :: Smartphore, permitid :: Int )` releases the permit
 
 All of this is a mild hack of the standard Julia Semaphore machinery found in *lock.jl*.  The same MIT license applies.
 
@@ -25,12 +25,12 @@ function howthisworks( n )
     
     s = Smartphore( n )
     Threads.@threads for i ∈ 1 : 20
-        local a = acquire!( s )
+        local a = acquire( s )
         println( "thread $(Threads.threadid()) says: block $a is mine, all mine" )
         blocks[a] .= i
         sleep(1)
         println( "thread $(Threads.threadid()) says: block I'm giving block $a back" )
-        release!( s, a )
+        release( s, a )
     end
 end
 
