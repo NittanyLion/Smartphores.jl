@@ -1,4 +1,4 @@
-name = "Smartphores.jl"
+name = "Smartphores"
 uuid = "d1712120-4320-4bd5-bb6f-c06e5f298789"
 authors = ["Joris Pinkse <pinkse@gmail.com> and contributors"]
 version = "0.1.0"
